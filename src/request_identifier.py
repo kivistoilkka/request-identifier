@@ -5,7 +5,7 @@ class RequestIdentifier:
         },
         'confirm': {
             'source': str,
-            'payment_number': int,
+            'paymentnumber': int,
         },
         'sign': {
             'source': str,
@@ -53,22 +53,32 @@ class RequestIdentifier:
         for key in path_requirements:
             if key not in parsed_parameters:
                 raise ValueError(f'Missing parameter: {key}')
-            parameters[key] = parsed_parameters[key]
+            valid_type = path_requirements[key]
+            try:
+                parameter_value = valid_type(parsed_parameters[key])
+                parameters[key] = parameter_value
+            except ValueError:
+                raise ValueError(f'Invalid parameter type: value for {key} is not {valid_type}')
         return {
             'path': path_name,
             'parameters': parameters
         }
 
 if __name__ == "__main__":
-    identifier = RequestIdentifier(
-        'visma-identity://login?source=severa'
-    )
+    # identifier = RequestIdentifier(
+    #     'visma-identity://login?source=severa'
+    # )
+    # print(identifier.path)
+    # print(identifier.parameters)
 
-    print(identifier.path)
-    print(identifier.parameters)
+    # identifier = RequestIdentifier(
+    #     'visma-identity://confirm?source=netvisor&paymentnumber=102226'
+    # )
+    # print(identifier.path)
+    # print(identifier.parameters)
 
     identifier = RequestIdentifier(
-        'visma-identity://login?paymentnumber=102226'
+        'visma-identity://confirm?source=netvisor&paymentnumber=aaa226'
     )
     print(identifier.path)
     print(identifier.parameters)
