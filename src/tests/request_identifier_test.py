@@ -8,6 +8,40 @@ class TestRequestIdentifier(unittest.TestCase):
     def test_class_is_created(self):
         self.assertIsInstance(self.identifier, RequestIdentifier)
 
+    def test_request_identifier_object_can_be_created_with_valid_login_uri(self):
+        login_identifier = RequestIdentifier('visma-identity://login?source=severa')
+        self.assertEqual(login_identifier.path, 'login')
+        self.assertEqual(
+            login_identifier.parameters,
+            { 'source': 'severa' }
+        )
+
+    def test_request_identifier_object_can_be_created_with_valid_confirm_uri(self):
+        confirm_identifier = RequestIdentifier(
+            'visma-identity://confirm?source=netvisor&paymentnumber=102226'
+        )
+        self.assertEqual(confirm_identifier.path, 'confirm')
+        self.assertEqual(
+            confirm_identifier.parameters,
+            {
+                'source': 'netvisor',
+                'paymentnumber': 102226
+            }
+        )
+
+    def test_request_identifier_object_can_be_created_with_valid_sign_uri(self):
+        sign_identifier = RequestIdentifier(
+            'visma-identity://sign?source=vismasign&documentid=105ab44'
+        )
+        self.assertEqual(sign_identifier.path, 'sign')
+        self.assertEqual(
+            sign_identifier.parameters,
+            {
+                'source': 'vismasign',
+                'documentid': '105ab44'
+            }
+        )
+
     def test_uri_parser_accepts_valid_login_uri(self):
         result = self.identifier.parse_and_validate_uri(
             'visma-identity://login?source=severa'
@@ -18,7 +52,7 @@ class TestRequestIdentifier(unittest.TestCase):
                 'path': 'login',
                 'parameters': {
                     'source': 'severa'
-                } 
+                }
             }
         )
 
@@ -33,7 +67,7 @@ class TestRequestIdentifier(unittest.TestCase):
                 'parameters': {
                     'source': 'netvisor',
                     'paymentnumber': 102226
-                } 
+                }
             }
         )
 
@@ -48,7 +82,7 @@ class TestRequestIdentifier(unittest.TestCase):
                 'parameters': {
                     'source': 'vismasign',
                     'documentid': '105ab44'
-                } 
+                }
             }
         )
 
