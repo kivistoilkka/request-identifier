@@ -17,5 +17,6 @@ class IdentifierClient:
                 print(f'Path: {result.path}')
                 print(f'Parameters: {result.parameters}')
             except ValueError as error:
+                print('Error:')
                 print(error)
             print('\n----------\n')
