@@ -1,5 +1,5 @@
-# RequestIndetifier class
-My implementation of class for programming task in Visma Solutions Summer Trainee recruitment process.
+# RequestIdentifier class
+My implementation of class for programming task in Visma Solutions Summer Trainee recruitment process. Code for the class itself can be found [here](https://github.com/kivistoilkka/request-identifier/blob/main/src/request_identifier.py).
 
 ## Installation
 
