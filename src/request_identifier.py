@@ -45,7 +45,7 @@ class RequestIdentifier:
         parsed_parameters = self.parse_parameters(parameters_string)
         path_requirements = self.paths_and_requirements[path_name]
 
-        if len(parsed_parameters.keys()) != len(path_requirements.keys()):
+        if len(parsed_parameters.keys()) > len(path_requirements.keys()):
             raise ValueError(f'Too many parameters: {parameters_string}')
         parameters = {}
         for key in path_requirements:
@@ -61,22 +61,3 @@ class RequestIdentifier:
             'path': path_name,
             'parameters': parameters
         }
-
-if __name__ == "__main__":
-    # identifier = RequestIdentifier(
-    #     'visma-identity://login?source=severa'
-    # )
-    # print(identifier.path)
-    # print(identifier.parameters)
-
-    # identifier = RequestIdentifier(
-    #     'visma-identity://confirm?source=netvisor&paymentnumber=102226'
-    # )
-    # print(identifier.path)
-    # print(identifier.parameters)
-
-    identifier = RequestIdentifier(
-        'visma-identity://confirm?source=netvisor&paymentnumber=aaa226'
-    )
-    print(identifier.path)
-    print(identifier.parameters)

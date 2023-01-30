@@ -129,6 +129,15 @@ class TestRequestIdentifier(unittest.TestCase):
             "Invalid parameter type: value for paymentnumber is not <class 'int'>"
         )
 
+    def test_uri_parser_do_not_accept_sign_uri_with_missing_documentid_parameter(self):
+        with self.assertRaises(ValueError) as cm:
+            self.identifier.parse_and_validate_uri(
+                'visma-identity://sign?source=vismasign'
+            )
+        self.assertEqual(str(cm.exception),
+            'Missing parameter: documentid'
+        )
+
 
     def test_parameter_parser_works_with_valid_input_for_login(self):
         result = self.identifier.parse_parameters("source=severa")

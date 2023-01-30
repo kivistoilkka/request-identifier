@@ -35,4 +35,6 @@ To begin the process, I created framework for the Python application. I decided 
 
 After this I started to work on URI parsing using test driven development. Everything went quite smoothly until I started to work on confirm paths, where I needed to validate and apply integer type to parameter paymentnumber. I had luck when I defined values in paths_and_requirements to be the required type of each parameter, so I was able to proceed with very little trial and error.
 
+Last step was to create the client class. I had to spend some time trying to understand the functionality of this required class. I ended up writing a small CLI program, where user can input uri-strings and program returns path and parameter information based on the input. Manual testing with this client revealed some validation bugs, which I wrote tests for and fixed.
+
 There is still some refactoring which could be done. For example method parse_and_validate_uri does a lot of different things and some of those steps could be separated to different methods in the same way as parse_parameters has already been.
